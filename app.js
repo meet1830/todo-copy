@@ -27,7 +27,7 @@ app.set("view engine", "ejs");
 // remove warning in console
 // uptil mongoose 7 this prop was false by default, but after that manually have to set it true or false
 mongoose.set("strictQuery", false);
-const mongoURI = `mongodb+srv://meet:meet123@cluster0.eym9t1e.mongodb.net/cluster0`;
+const mongoURI = `mongodb+srv://meet:12345@cluster0.twhduo8.mongodb.net/?retryWrites=true&w=majority`;
 mongoose
   .connect(mongoURI, {
     useNewUrlParser: true,
