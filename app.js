@@ -1,4 +1,3 @@
-// importing express
 const express = require("express");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
@@ -6,28 +5,21 @@ const mongoose = require("mongoose");
 const UserSchema = require("./UserSchema");
 const session = require("express-session");
 const mongoDBSession = require("connect-mongodb-session")(session);
-
 //models
 const TodoModel = require("./models/TodoModel");
 
 //middlewares
 const {
   cleanUpAndValidate,
-} = require("./Utils/AuthUtils");
-const isAuth = require("./middlewares/isAuth");
-const rateLimitng = require("./middlewares/rateLimiting");
+} = require("./utils/AuthUtils");
+const isAuth = require("./middleware/isAuth");
+const rateLimitng = require("./middleware/rateLimiting");
 
-// creating a server
 const app = express();
 
-// set render method to ejs
-// for rendering ejs we need view engine
-// for it to work the folder name should be views and should contain the files to be rendered
-// ejs is run by view engine like chrome is run by v8 engine
 app.set("view engine", "ejs");
 
-// remove warning in console
-// uptil mongoose 7 this prop was false by default, but after that manually have to set it true or false
+//connection with
 mongoose.set("strictQuery", false);
 const mongoURI = `mongodb+srv://meet:12345@cluster0.twhduo8.mongodb.net/test`;
 mongoose
@@ -42,17 +34,12 @@ mongoose
     console.log("Failed to connect", err);
   });
 
-// these lines help take out the body if sending some data
-// middlewares
+//middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// create a middle ware for public folder to be accessible from both client and server side
 app.use(express.static("public"));
 
-// both packages installed for session based authentication
-// session will be created in backend and will be sent to frontend and will be stored there in the form of a cookie
-// express session does this
-// connect mongodb session helps store that session in database
+//Adding the session
 
 const store = new mongoDBSession({
   uri: mongoURI,
@@ -93,6 +80,8 @@ app.post("/register", async (req, res) => {
     });
   }
 
+  //abc123 --> shjsiohc484798@!#
+  //bcrypt : md5
   const hashedPassword = await bcrypt.hash(password, 7);
 
   let user = new UserSchema({
@@ -400,3 +389,28 @@ const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Listenning on port ${PORT}`);
 });
+
+//Create an ejs Template for register and loggin
+//hashed Password
+//Create a mongoDB connection
+//User Schema
+
+//lecture 7
+//checkuser before insertion /register
+
+//'/login'
+//validate the data
+//find user using either mail or username
+//for found user matched the password
+//include session info to check futher
+//adding session and on database
+
+//dashboard template
+//'logout' and 'logout from all devices
+//isAuth
+
+//create item, edit item, delete item
+//axios package
+//browser
+//pagination
+//rate limiting

@@ -1,10 +1,7 @@
 const mongoose = require("mongoose");
-
-// just write schema instead of mongoose.schema everywhere
 const Schema = mongoose.Schema;
 
-// defining the structure of schema
-const UserSchema = new Schema({
+const userSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -14,12 +11,12 @@ const UserSchema = new Schema({
     required: true,
     unique: true,
   },
-  email: {
+  password: {
     type: String,
     required: true,
     unique: true,
   },
-  password: {
+  email: {
     type: String,
     required: true,
     unique: true,
@@ -29,5 +26,34 @@ const UserSchema = new Schema({
   },
 });
 
-// give collection name as plural - users as multiple users can be there
-module.exports = mongoose.model("users", UserSchema);
+module.exports = mongoose.model("users", userSchema);
+
+// Definition of Users Collections
+// const mongoose = require("mongoose");
+// const Schema = mongoose.Schema;
+
+// const userSchema = new Schema({
+//   name: {
+//     type: String,
+//     required: true,
+//   },
+//   username: {
+//     type: String,
+//     required: true,
+//   },
+//   password: {
+//     type: String,
+//     required: true,
+//     unique: true,
+//   },
+//   email: {
+//     type: String,
+//     required: true,
+//   },
+//   phone: {
+//     type: String,
+//     required: false,
+//   },
+// });
+
+// module.exports = mongoose.model("users", userSchema);
